@@ -1,0 +1,3 @@
+<style name="BottomNavigationViewThemeOverlay">
+    <item name="colorOnSurface">@color/...</item>
+</style>

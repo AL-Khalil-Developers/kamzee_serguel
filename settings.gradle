@@ -1,0 +1,3 @@
+include ':app'
+include ':emoji-google-compat'
+include ':emoji'

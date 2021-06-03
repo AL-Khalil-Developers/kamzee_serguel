@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ownProfileElementOneClickableArea"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4.0dip"
+    android:layout_marginBottom="@dimen/spacing_md"
+    android:adjustViewBounds="true"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:id="@+id/users_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.kamzee.app.modules.squareViews.SquareImageView
+            android:id="@+id/peopleNearby_personImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/peopleNearby_personName"
+                        style="?textStyleP3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="@dimen/size_0_5"
+                        android:ellipsize="end"
+                        android:lineSpacingMultiplier="1.0"
+                        android:maxWidth="100.0dip"
+                        android:singleLine="true"
+                        android:textSize="18sp"
+                        android:textStyle="normal"
+                        tools:text="John Doe" />
+
+                    <com.kamzee.app.modules.circularimageview.CircleImageView
+                        android:id="@+id/peopleNearby_personStatus"
+                        android:layout_width="6dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:src="@color/red_500" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/peopleNearby_personAgeLocation"
+                    style="?textStyleP3Gray60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxWidth="100.0dip"
+                    android:textSize="17sp"
+                    android:textStyle="normal"
+                    tools:text="26, Luanda" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/chat"
+                android:layout_width="19dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_tabbar_mess" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

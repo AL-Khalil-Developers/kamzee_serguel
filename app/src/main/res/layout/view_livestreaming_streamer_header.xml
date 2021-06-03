@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/streamer"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:padding="@dimen/spacing_md">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+    <com.kamzee.app.modules.circularimageview.CircleImageView
+        android:id="@+id/viewstreamingHeader_streamerImage"
+        android:layout_width="@dimen/icon_xlg"
+        android:layout_height="@dimen/icon_xlg"
+        android:layout_marginStart="@dimen/spacing_md"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:src="@drawable/profile"
+        android:layout_marginBottom="@dimen/spacing_md"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        android:layout_marginLeft="@dimen/spacing_md" />
+
+    <TextView
+        android:id="@+id/livestreamingHeader_status"
+        style="?attr/textStyleP3Inverse"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:minWidth="36dp"
+        android:paddingStart="6dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="4dp"
+        android:text="00:00"
+        android:background="@drawable/bg_livestreaming_rounded_rect_red_carrot"
+        app:layout_constraintBottom_toBottomOf="@+id/viewstreamingHeader_streamerImage"
+        app:layout_constraintRight_toLeftOf="@id/viewstreamingHeader_streamerImage"
+        app:layout_constraintTop_toTopOf="@+id/viewstreamingHeader_streamerImage"
+        android:layout_marginLeft="2dp" />
+
+    <TextView
+        android:id="@+id/viewstreamingHeader_name"
+        style="?attr/textStyleP2Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textSize="15dp"
+        android:maxWidth="@dimen/streamer_name_max_width"
+        android:maxLines="1"
+        tools:text="Maravilho, "
+        app:layout_constraintLeft_toRightOf="@id/viewstreamingHeader_streamerImage"
+        app:layout_constraintBottom_toBottomOf="@+id/livestreamingHeader_status"
+        app:layout_constraintTop_toTopOf="@+id/livestreamingHeader_status"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/livestreamingHeader_viewers"
+        style="?attr/textStyleP3Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_livestreaming_rounded_rect_black_alpha_carrot"
+        android:drawablePadding="4dp"
+        android:paddingStart="6dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintRight_toLeftOf="@id/viewstreamingHeader_name"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/viewstreamingHeader_name"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        android:layout_marginLeft="4dp"
+        app:drawableLeftCompat="@drawable/ic_view_i" />
+
+    <TextView
+        android:id="@+id/livestreamingHeader_tokens"
+        style="?attr/textStyleP3Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_livestreaming_rounded_rect_black_alpha_carrot"
+        android:drawablePadding="4dp"
+        android:paddingStart="6dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="4dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/livestreamingHeader_viewers"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        android:layout_marginLeft="4dp"
+        app:drawableLeftCompat="@drawable/ic_diamond_top_streamer" />
+
+
+    <ImageView
+        android:id="@+id/livestreamingHeader_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/livestreamingHeader_minimize"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@drawable/ic_livestream_pause" />
+
+    <ImageView
+        android:id="@+id/livestreamingHeader_minimize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/livestreamingHeader_close"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@drawable/ic_livestream_minimize" />
+
+    <ImageView
+        android:id="@+id/livestreamingHeader_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@drawable/ic_livestream_close" />
+</androidx.constraintlayout.widget.ConstraintLayout>
