@@ -15,6 +15,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +33,7 @@ import com.kamzee.app.home.payments.PaymentsActivity;
 import com.kamzee.app.home.popularity.PopularityActivity;
 import com.kamzee.app.home.settings.SettingsActivity;
 import com.kamzee.app.home.uploads.UploadsActivity;
-import com.kamzee.app.models.SliderDataHolder;
+import com.kamzee.app.models.SliderItem;
 import com.kamzee.app.models.datoo.User;
 import com.kamzee.app.modules.circularimageview.CircleImageView;
 import com.greysonparrelli.permiso.Permiso;
@@ -65,11 +68,10 @@ public class MyProfileFragment extends Fragment {
     private View mCreditsView, mPopularityView, mSecondView, mProfileBannerView;
 
 
-    SliderView mSliderView;
-    ImageSliderAdapter mImageSliderAdapter;
+//    ImageSlider imageSlider;
     FirebaseDatabase firebaseDatabase;
-    List<SliderDataHolder> sliderItemsList;
-    SliderDataHolder sliderDataHolder;
+    SliderView mSliderView;
+
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -82,48 +84,8 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle b) {
         super.onViewCreated(view, b);
-        mImageSliderAdapter = new ImageSliderAdapter(getActivity(),sliderItemsList);
 
 
-        firebaseDatabase.getReference("BannerSlider").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @org.jetbrains.annotations.NotNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String key = (String) dataSnapshot.getKey();
-                    assert key != null;
-                    DatabaseReference keyReference = FirebaseDatabase.getInstance().getReference().child("BannerSlider").child(key);
-                    keyReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            sliderDataHolder.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
-                            sliderDataHolder.setImageLink(Objects.requireNonNull(snapshot.child("imageLink").getValue()).toString());
-                            sliderItemsList.add(sliderDataHolder);
-                            mImageSliderAdapter.notifyDataSetChanged();
-                            mSliderView.setSliderAdapter(mImageSliderAdapter);
-                            mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-                            mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-                            mSliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-                            mSliderView.setIndicatorSelectedColor(Color.WHITE);
-                            mSliderView.setIndicatorUnselectedColor(Color.GRAY);
-                            mSliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
-                            mSliderView.startAutoCycle();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @org.jetbrains.annotations.NotNull DatabaseError error) {
-
-            }
-        });
-
-        
     }
 
     @Override
@@ -136,13 +98,49 @@ public class MyProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_my_profile, container, false);
-        sliderItemsList = new ArrayList<>();
-        sliderDataHolder = new SliderDataHolder();
+
+        mSliderView = v.findViewById(R.id.imageSliderView);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
-        mSliderView = v.findViewById(R.id.mSliderView);
+        final  List<SliderItem> mSliderItem = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("BannerSlider").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    mSliderItem.add(new SliderItem(ds.child("title").getValue().toString(),ds.child("imageLink").getValue().toString(),ds.child("webLink").getValue().toString()));
+                }
+                mSliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(),mSliderItem));
+                mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+                mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+                mSliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                mSliderView.setIndicatorSelectedColor(Color.WHITE);
+                mSliderView.setIndicatorUnselectedColor(Color.GRAY);
+                mSliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+                mSliderView.startAutoCycle();
+            }
 
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-
+            }
+        });
+//        imageSlider = v.findViewById(R.id.mSliderView);
+//        final List<SlideModel> remoteFirebase = new ArrayList<>();
+//        FirebaseDatabase.getInstance().getReference().child("BannerSlider").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+//                for (DataSnapshot ds : snapshot.getChildren()){
+//                    remoteFirebase.add(new SlideModel(ds.child("imageLink").getValue().toString(),ds.child("title").getValue().toString(), ScaleTypes.CENTER_CROP));
+//                }
+//                imageSlider.setImageList(remoteFirebase,ScaleTypes.CENTER_CROP);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+//
+//            }
+//        });
 
         circleImageView = v.findViewById(R.id.avatar);
         mNameAndAge = v.findViewById(R.id.myProfileNameAndAge);

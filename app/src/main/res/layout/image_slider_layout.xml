@@ -6,19 +6,21 @@
 
   <ImageView
       app:layout_constraintTop_toTopOf="parent"
-      android:id="@+id/sliderImageView"
+      android:id="@+id/imageView_slider"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:layout_width="match_parent"
       android:layout_height="220dp"/>
     <TextView
-        android:id="@+id/sliderTitleTxt"
+        android:id="@+id/titleText_slider"
         android:layout_width="match_parent"
         android:minHeight="50dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:textColor="#fff"
         android:text="Title"
-        app:layout_constraintBottom_toBottomOf="@+id/sliderImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_slider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="#A6000000"

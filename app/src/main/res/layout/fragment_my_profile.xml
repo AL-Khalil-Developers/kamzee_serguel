@@ -15,13 +15,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:cardCornerRadius="6dp"
+            app:cardCornerRadius="20dp"
             android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/mSliderView"
+                android:id="@+id/imageSliderView"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 app:sliderAnimationDuration="600"

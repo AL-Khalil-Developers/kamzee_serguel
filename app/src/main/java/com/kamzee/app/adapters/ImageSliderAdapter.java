@@ -1,6 +1,9 @@
 package com.kamzee.app.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,49 +12,64 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kamzee.app.R;
-import com.kamzee.app.adapters.ImageSliderAdapter.SliderViewHolder;
-import com.kamzee.app.models.SliderDataHolder;
+import com.kamzee.app.models.SliderItem;
+import com.smarteist.autoimageslider.SliderViewAdapter;
 
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSliderAdapter extends com.smarteist.autoimageslider.SliderViewAdapter<SliderViewHolder> {
+import static com.kamzee.app.adapters.ImageSliderAdapter.*;
+
+public class ImageSliderAdapter extends SliderViewAdapter<SliderAdapterVH> {
 
     Context context;
-    List<SliderDataHolder> mSliderItems = new ArrayList<>();
+    List<SliderItem> mSliderItems = new ArrayList<>();
 
-    public ImageSliderAdapter(Context context, List<SliderDataHolder> mSliderItems) {
+    public ImageSliderAdapter(Context context, List<SliderItem> mSliderItems) {
         this.context = context;
         this.mSliderItems = mSliderItems;
     }
 
     @Override
-    public SliderViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slider_layout,parent,false);
-        return new SliderViewHolder(view);
+    public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slider_layout, null);
+        return new SliderAdapterVH(inflate);
     }
 
-
-
     @Override
-    public void onBindViewHolder(SliderViewHolder viewHolder, int position) {
-        viewHolder.titleTxt.setText(mSliderItems.get(position).getTitle());
-        Glide.with(viewHolder.itemView).load(mSliderItems.get(position).getImageLink()).centerCrop().into(viewHolder.sliderImageView);
+    public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
+
+        SliderItem sliderItem = mSliderItems.get(position);
+        viewHolder.title.setText(sliderItem.getTitle());
+        Glide.with(viewHolder.itemView).load(sliderItem.getImageLink()).fitCenter().into(viewHolder.bannerImage);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = sliderItem.getWebLink().toString();
+                Intent openWebLinkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                context.startActivity(openWebLinkIntent);
+            }
+        });
+
     }
 
     @Override
     public int getCount() {
-        return mSliderItems.toArray().length;
+        return mSliderItems.size();
     }
 
-    public class SliderViewHolder extends ViewHolder {
-        ImageView sliderImageView;
-        TextView titleTxt;
-        public SliderViewHolder(View itemView) {
+    public static class SliderAdapterVH extends ViewHolder {
+        ImageView bannerImage;
+        TextView title;
+        View itemView;
+        public SliderAdapterVH(View itemView) {
             super(itemView);
-            sliderImageView = itemView.findViewById(R.id.sliderImageView);
-            titleTxt = itemView.findViewById(R.id.sliderTitleTxt);
+            bannerImage = itemView.findViewById(R.id.imageView_slider);
+            title = itemView.findViewById(R.id.titleText_slider);
+            this.itemView = itemView;
         }
     }
 }
