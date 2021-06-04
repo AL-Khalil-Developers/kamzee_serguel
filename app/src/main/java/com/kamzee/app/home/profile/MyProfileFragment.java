@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.kamzee.app.R;
+import com.kamzee.app.adapters.ImageSliderAdapter;
 import com.kamzee.app.app.Application;
 import com.kamzee.app.helpers.QuickActions;
 import com.kamzee.app.helpers.QuickHelp;
@@ -26,6 +27,7 @@ import com.kamzee.app.home.popularity.PopularityActivity;
 import com.kamzee.app.home.settings.SettingsActivity;
 import com.kamzee.app.home.uploads.UploadsActivity;
 import com.kamzee.app.models.datoo.User;
+import com.kamzee.app.modules.autoimageslider.SliderView;
 import com.kamzee.app.modules.circularimageview.CircleImageView;
 import com.greysonparrelli.permiso.Permiso;
 
@@ -51,6 +53,8 @@ public class MyProfileFragment extends Fragment {
 
     private View mCreditsView, mPopularityView, mSecondView, mProfileBannerView;
 
+    SliderView sliderView;
+    ImageSliderAdapter imageSliderAdapter;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -68,6 +72,7 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override

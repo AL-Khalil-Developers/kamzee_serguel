@@ -122,6 +122,9 @@ dependencies {
     implementation 'com.github.Flutterwave.rave-android:rave_android:2.1.8'
     implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     implementation 'androidx.emoji:emoji:1.0.0'
+
+    //image slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
