@@ -9,21 +9,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kamzee.app.R;
+import com.kamzee.app.adapters.ImageSliderAdapter.SliderViewHolder;
 import com.kamzee.app.models.SliderDataHolder;
-import com.kamzee.app.modules.autoimageslider.SliderViewAdapter;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.SliderViewHolder> {
+public class ImageSliderAdapter extends com.smarteist.autoimageslider.SliderViewAdapter<SliderViewHolder> {
 
     Context context;
-    int count;
     List<SliderDataHolder> mSliderItems = new ArrayList<>();
 
-    public ImageSliderAdapter(Context context, int count, List<SliderDataHolder> mSliderItems) {
+    public ImageSliderAdapter(Context context, List<SliderDataHolder> mSliderItems) {
         this.context = context;
-        this.count = count;
         this.mSliderItems = mSliderItems;
     }
 
@@ -33,18 +32,20 @@ public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.Sli
         return new SliderViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(SliderViewHolder viewHolder, int position) {
         viewHolder.titleTxt.setText(mSliderItems.get(position).getTitle());
-        Glide.with(viewHolder.itemView).load(mSliderItems.get(position).getImageLink()).fitCenter().into(viewHolder.sliderImageView);
+        Glide.with(viewHolder.itemView).load(mSliderItems.get(position).getImageLink()).centerCrop().into(viewHolder.sliderImageView);
     }
 
     @Override
     public int getCount() {
-        return count;
+        return mSliderItems.toArray().length;
     }
 
-    public static class SliderViewHolder extends SliderViewAdapter.ViewHolder {
+    public class SliderViewHolder extends ViewHolder {
         ImageView sliderImageView;
         TextView titleTxt;
         public SliderViewHolder(View itemView) {

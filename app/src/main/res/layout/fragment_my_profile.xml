@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/imageSlider"
+                android:id="@+id/mSliderView"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 app:sliderAnimationDuration="600"

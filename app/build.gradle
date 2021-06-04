@@ -125,6 +125,8 @@ dependencies {
 
     //image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.google.firebase:firebase-database:20.0.0'
+    implementation 'org.jetbrains:annotations:15.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
