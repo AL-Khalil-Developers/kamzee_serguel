@@ -22,12 +22,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kamzee.app.R;
+import com.kamzee.app.adapters.ImageSliderAdapter;
 import com.kamzee.app.adapters.datoo.UsersLiveAdapter;
 import com.kamzee.app.app.Config;
 import com.kamzee.app.auth.WelcomeActivity;
 import com.kamzee.app.helpers.QuickHelp;
 import com.kamzee.app.home.HomeActivity;
+import com.kamzee.app.models.SliderItem;
 import com.kamzee.app.models.datoo.FollowModel;
 import com.kamzee.app.models.datoo.LiveStreamModel;
 import com.kamzee.app.models.datoo.User;
@@ -40,6 +46,11 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.livequery.ParseLiveQueryClient;
 import com.parse.livequery.SubscriptionHandling;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -71,6 +82,11 @@ public class LiveFragment extends Fragment {
     private ParseQuery<LiveStreamModel> liveStreamModelParseQuery = LiveStreamModel.getSteamingQuery();
     private SubscriptionHandling<LiveStreamModel> liveQueryStreamSubscription;
 
+    //    ImageSlider imageSlider;
+    FirebaseDatabase firebaseDatabase;
+    SliderView mSliderView;
+
+
     public LiveFragment() {
         // Required empty public constructor
     }
@@ -96,6 +112,31 @@ public class LiveFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_live_broadcast, container,false);
+        mSliderView = v.findViewById(R.id.imageSliderView);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        final  List<SliderItem> mSliderItem = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("BannerSlider").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    mSliderItem.add(new SliderItem(ds.child("title").getValue().toString(),ds.child("imageLink").getValue().toString(),ds.child("webLink").getValue().toString()));
+                }
+                mSliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(),mSliderItem));
+                mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+                mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+                mSliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                mSliderView.setIndicatorSelectedColor(Color.WHITE);
+                mSliderView.setIndicatorUnselectedColor(Color.GRAY);
+                mSliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+                mSliderView.startAutoCycle();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
 
         mCurrentUser = (User) ParseUser.getCurrentUser();
 
