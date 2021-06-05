@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -71,6 +72,7 @@ public class MyProfileFragment extends Fragment {
 //    ImageSlider imageSlider;
     FirebaseDatabase firebaseDatabase;
     SliderView mSliderView;
+    CardView mSliderCardView;
 
 
     public MyProfileFragment() {
@@ -100,30 +102,49 @@ public class MyProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         mSliderView = v.findViewById(R.id.imageSliderView);
+        mSliderCardView = v.findViewById(R.id.imageSlider_cardView);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        final  List<SliderItem> mSliderItem = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference().child("BannerSlider").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for (DataSnapshot ds: snapshot.getChildren()){
-                    mSliderItem.add(new SliderItem(ds.child("title").getValue().toString(),ds.child("imageLink").getValue().toString(),ds.child("webLink").getValue().toString()));
+                if (!snapshot.child("BannerSlider").exists()){
+                    mSliderCardView.setVisibility(View.GONE);
+                }else{
+                    mSliderCardView.setVisibility(View.VISIBLE);
+                    final  List<SliderItem> mSliderItem = new ArrayList<>();
+                    FirebaseDatabase.getInstance().getReference().child("BannerSlider").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                            for (DataSnapshot ds: snapshot.getChildren()){
+                                mSliderItem.add(new SliderItem(ds.child("imageLink").getValue().toString(),ds.child("webLink").getValue().toString()));
+                            }
+                            mSliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(),mSliderItem));
+//                            mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+//                            mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+//                            mSliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+//                            mSliderView.setIndicatorSelectedColor(Color.WHITE);
+//                            mSliderView.setIndicatorUnselectedColor(Color.GRAY);
+                            mSliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+                            mSliderView.startAutoCycle();
+                            mSliderView.setIndicatorEnabled(false);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });
                 }
-                mSliderView.setSliderAdapter(new ImageSliderAdapter(getActivity(),mSliderItem));
-                mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-                mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-                mSliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-                mSliderView.setIndicatorSelectedColor(Color.WHITE);
-                mSliderView.setIndicatorUnselectedColor(Color.GRAY);
-                mSliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
-                mSliderView.startAutoCycle();
             }
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
+                mSliderCardView.setVisibility(View.GONE);
             }
         });
+
 //        imageSlider = v.findViewById(R.id.mSliderView);
 //        final List<SlideModel> remoteFirebase = new ArrayList<>();
 //        FirebaseDatabase.getInstance().getReference().child("BannerSlider").addListenerForSingleValueEvent(new ValueEventListener() {

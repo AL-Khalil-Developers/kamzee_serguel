@@ -42,8 +42,7 @@ public class ImageSliderAdapter extends SliderViewAdapter<SliderAdapterVH> {
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
 
         SliderItem sliderItem = mSliderItems.get(position);
-        viewHolder.title.setText(sliderItem.getTitle());
-        Glide.with(viewHolder.itemView).load(sliderItem.getImageLink()).fitCenter().into(viewHolder.bannerImage);
+        Glide.with(viewHolder.itemView).load(sliderItem.getImageLink()).into(viewHolder.bannerImage);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +62,10 @@ public class ImageSliderAdapter extends SliderViewAdapter<SliderAdapterVH> {
 
     public static class SliderAdapterVH extends ViewHolder {
         ImageView bannerImage;
-        TextView title;
         View itemView;
         public SliderAdapterVH(View itemView) {
             super(itemView);
             bannerImage = itemView.findViewById(R.id.imageView_slider);
-            title = itemView.findViewById(R.id.titleText_slider);
             this.itemView = itemView;
         }
     }

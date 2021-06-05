@@ -1,23 +1,12 @@
 package com.kamzee.app.models;
 
 public class SliderItem {
-    String title;
     String imageLink;
     String webLink;
 
-
-    public SliderItem(String title, String imageLink, String webLink) {
-        this.title = title;
+    public SliderItem(String imageLink, String webLink) {
         this.imageLink = imageLink;
         this.webLink = webLink;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getImageLink() {

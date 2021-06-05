@@ -11,18 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/imageSlider_cardView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:cardCornerRadius="20dp"
             android:layout_margin="16dp"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content">
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/imageSliderView"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_width="320dp"
+                android:layout_height="100dp"
+                app:sliderIndicatorEnabled="false"
                 app:sliderAnimationDuration="600"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderAutoCycleEnabled="true"
