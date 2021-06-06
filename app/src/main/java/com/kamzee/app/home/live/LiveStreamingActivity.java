@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -1235,38 +1236,42 @@ public class LiveStreamingActivity extends AppCompatActivity {
 
     public void initGiftBottomSheet() {
 
-        ArrayList<GiftModel> mGiftFooterList = new ArrayList<>();
-        GiftLiveAdapter mGiftLiveAdapter = new GiftLiveAdapter(this, mGiftFooterList);
+        try {
+            ArrayList<GiftModel> mGiftFooterList = new ArrayList<>();
+            GiftLiveAdapter mGiftLiveAdapter = new GiftLiveAdapter(this, mGiftFooterList);
 
-        mGiftBottomShet = new BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme);
-        mGiftBottomShet.setContentView(R.layout.view_stream_viewer_bottom_sheet);
-        mGiftBottomShet.setCancelable(true);
-        mGiftBottomShet.setCanceledOnTouchOutside(true);
+            mGiftBottomShet = new BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme);
+            mGiftBottomShet.setContentView(R.layout.view_stream_viewer_bottom_sheet);
+            mGiftBottomShet.setCancelable(true);
+            mGiftBottomShet.setCanceledOnTouchOutside(true);
 
-        RecyclerView recyclerView = mGiftBottomShet.findViewById(R.id.liveStreaming_bottom_rv);
+            RecyclerView recyclerView = mGiftBottomShet.findViewById(R.id.liveStreaming_bottom_rv);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
 
-        assert recyclerView != null;
-        recyclerView.setAdapter(mGiftLiveAdapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setBackgroundResource(R.color.transparent);
-        recyclerView.setLayoutManager(layoutManager);
+            assert recyclerView != null;
+            recyclerView.setAdapter(mGiftLiveAdapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setBackgroundResource(R.color.transparent);
+            recyclerView.setLayoutManager(layoutManager);
 
-        ParseQuery<GiftModel> giftModelParseQuery = GiftModel.getGiftQuery();
-        giftModelParseQuery.findInBackground((giftList, e) -> {
+            ParseQuery<GiftModel> giftModelParseQuery = GiftModel.getGiftQuery();
+            giftModelParseQuery.findInBackground((giftList, e) -> {
 
-            if (e == null){
+                if (e == null){
+                    mGiftFooterList.clear();
+                    mGiftFooterList.addAll(giftList);
+                    mGiftLiveAdapter.notifyDataSetChanged();
+                }
+            });
 
-                mGiftFooterList.clear();
-                mGiftFooterList.addAll(giftList);
-                mGiftLiveAdapter.notifyDataSetChanged();
+            if (mGiftBottomShet != null && !mGiftBottomShet.isShowing()){
+                mGiftBottomShet.show();
             }
-        });
-
-        if (mGiftBottomShet != null && !mGiftBottomShet.isShowing()){
-            mGiftBottomShet.show();
+        }catch (Exception e){
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void sendLiveGift(GiftModel giftModel){

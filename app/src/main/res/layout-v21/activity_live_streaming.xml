@@ -255,6 +255,9 @@
     </FrameLayout>
 
     <com.airbnb.lottie.LottieAnimationView
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/gift"
+        app:lottie_loop="true"
         android:id="@+id/liveStreaming_fullscreenGift"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

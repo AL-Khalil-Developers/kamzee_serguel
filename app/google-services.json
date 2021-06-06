@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "1051682401227",
-    "firebase_url": "https://myapp-a56e6-default-rtdb.firebaseio.com",
-    "project_id": "myapp-a56e6",
-    "storage_bucket": "myapp-a56e6.appspot.com"
+    "project_number": "867205793534",
+    "project_id": "kamzee-95ba1",
+    "storage_bucket": "kamzee-95ba1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1051682401227:android:bf62152eada8b1e19ea44e",
+        "mobilesdk_app_id": "1:867205793534:android:7b52fced17b93c258c87af",
         "android_client_info": {
-          "package_name": "com.alkhalildevelopers.ytdownload"
+          "package_name": "com.alkhalildevelopers.kamzeeadmin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1051682401227-o7hnm2f9irfu5qbjnqkcvvjneur475cr.apps.googleusercontent.com",
+          "client_id": "867205793534-ns2l6oe9sgsaal4i5fgt6jf6e8s6pt60.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCXQ0D3WoPokZINZ1pNR0pq6ur_rawgl0M"
+          "current_key": "AIzaSyBEsax1omk2MBNn2u1lNCUGUdKGfZSyZWo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1051682401227-o7hnm2f9irfu5qbjnqkcvvjneur475cr.apps.googleusercontent.com",
+              "client_id": "867205793534-ns2l6oe9sgsaal4i5fgt6jf6e8s6pt60.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -37,27 +36,64 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1051682401227:android:7d693be89a2a33ab9ea44e",
+        "mobilesdk_app_id": "1:867205793534:android:4ac1b5f9662b5ee78c87af",
         "android_client_info": {
           "package_name": "com.kamzee.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1051682401227-o7hnm2f9irfu5qbjnqkcvvjneur475cr.apps.googleusercontent.com",
+          "client_id": "867205793534-ns2l6oe9sgsaal4i5fgt6jf6e8s6pt60.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCXQ0D3WoPokZINZ1pNR0pq6ur_rawgl0M"
+          "current_key": "AIzaSyBEsax1omk2MBNn2u1lNCUGUdKGfZSyZWo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1051682401227-o7hnm2f9irfu5qbjnqkcvvjneur475cr.apps.googleusercontent.com",
+              "client_id": "867205793534-ns2l6oe9sgsaal4i5fgt6jf6e8s6pt60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867205793534:android:5fd7f8df1f17eb648c87af",
+        "android_client_info": {
+          "package_name": "com.kamzeelive.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867205793534-5eppb9q2tiq1r9q2kparupaqigq8savv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kamzeelive.app",
+            "certificate_hash": "b064d175cd2a9bcfe8e64eb527ef5c488caf9322"
+          }
+        },
+        {
+          "client_id": "867205793534-ns2l6oe9sgsaal4i5fgt6jf6e8s6pt60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEsax1omk2MBNn2u1lNCUGUdKGfZSyZWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867205793534-ns2l6oe9sgsaal4i5fgt6jf6e8s6pt60.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
