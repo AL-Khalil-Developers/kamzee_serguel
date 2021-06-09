@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.kamzee.app.R;
+import com.kamzee.app.helpers.QuickHelp;
 import com.kamzee.app.home.live.LiveStreamingActivity;
 import com.kamzee.app.models.datoo.GiftModel;
 
@@ -45,12 +47,26 @@ public class GiftLiveAdapter extends RecyclerView.Adapter<GiftLiveAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         GiftModel gift = mGifts.get(position);
 
-        viewHolder.mGiftImage.setAnimationFromUrl(gift.getGiftFile().getUrl());
-        viewHolder.mGiftImage.setSpeed(0.8f);
+        if (gift.getGiftFile().getUrl().endsWith(".json")){
 
-        viewHolder.mGiftCoins.setText(String.valueOf(gift.getCoins()));
+            viewHolder.mGiftImageGIF.setVisibility(View.GONE);
+            viewHolder.mGiftImageLottie.setVisibility(View.VISIBLE);
 
+            viewHolder.mGiftImageLottie.setAnimationFromUrl(gift.getGiftFile().getUrl());
+            viewHolder.mGiftImageLottie.setSpeed(0.8f);
+
+        } else if (gift.getGiftFile().getUrl().endsWith(".gif")){
+
+            viewHolder.mGiftImageGIF.setVisibility(View.VISIBLE);
+            viewHolder.mGiftImageLottie.setVisibility(View.GONE);
+
+            QuickHelp.showGifFile(mActivity, viewHolder.mGiftImageGIF, gift.getGiftFile().getUrl());
+
+        }
+
+        viewHolder.mGiftCredits.setText(String.valueOf(gift.getCoins()));
         viewHolder.mLayout.setOnClickListener(v -> ((LiveStreamingActivity) mActivity).sendLiveGift(gift));
+
     }
 
     @Override
@@ -59,17 +75,18 @@ public class GiftLiveAdapter extends RecyclerView.Adapter<GiftLiveAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
         ConstraintLayout mLayout;
-        LottieAnimationView mGiftImage;
-        TextView mGiftCoins;
+        LottieAnimationView mGiftImageLottie;
+        ImageView mGiftImageGIF;
+        TextView mGiftCredits;
 
         ViewHolder(View v) {
             super(v);
 
             mLayout = v.findViewById(R.id.root_view);
-            mGiftImage = v.findViewById(R.id.itemLiveGift_iconImage);
-            mGiftCoins = v.findViewById(R.id.itemLiveGift_priceText);
+            mGiftImageLottie = v.findViewById(R.id.itemLiveGift_lottieImage);
+            mGiftImageGIF = v.findViewById(R.id.itemLiveGift_GifImage);
+            mGiftCredits = v.findViewById(R.id.itemLiveGift_priceText);
         }
     }
 

@@ -1236,42 +1236,38 @@ public class LiveStreamingActivity extends AppCompatActivity {
 
     public void initGiftBottomSheet() {
 
-        try {
-            ArrayList<GiftModel> mGiftFooterList = new ArrayList<>();
-            GiftLiveAdapter mGiftLiveAdapter = new GiftLiveAdapter(this, mGiftFooterList);
+        ArrayList<GiftModel> mGiftFooterList = new ArrayList<>();
+        GiftLiveAdapter mGiftLiveAdapter = new GiftLiveAdapter(this, mGiftFooterList);
 
-            mGiftBottomShet = new BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme);
-            mGiftBottomShet.setContentView(R.layout.view_stream_viewer_bottom_sheet);
-            mGiftBottomShet.setCancelable(true);
-            mGiftBottomShet.setCanceledOnTouchOutside(true);
+        mGiftBottomShet = new BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme);
+        mGiftBottomShet.setContentView(R.layout.view_stream_viewer_bottom_sheet);
+        mGiftBottomShet.setCancelable(true);
+        mGiftBottomShet.setCanceledOnTouchOutside(true);
 
-            RecyclerView recyclerView = mGiftBottomShet.findViewById(R.id.liveStreaming_bottom_rv);
+        RecyclerView recyclerView = mGiftBottomShet.findViewById(R.id.liveStreaming_bottom_rv);
 
-            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
 
-            assert recyclerView != null;
-            recyclerView.setAdapter(mGiftLiveAdapter);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setBackgroundResource(R.color.transparent);
-            recyclerView.setLayoutManager(layoutManager);
+        assert recyclerView != null;
+        recyclerView.setAdapter(mGiftLiveAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setBackgroundResource(R.color.transparent);
+        recyclerView.setLayoutManager(layoutManager);
 
-            ParseQuery<GiftModel> giftModelParseQuery = GiftModel.getGiftQuery();
-            giftModelParseQuery.findInBackground((giftList, e) -> {
+        ParseQuery<GiftModel> giftModelParseQuery = GiftModel.getGiftQuery();
+        giftModelParseQuery.findInBackground((giftList, e) -> {
 
-                if (e == null){
-                    mGiftFooterList.clear();
-                    mGiftFooterList.addAll(giftList);
-                    mGiftLiveAdapter.notifyDataSetChanged();
-                }
-            });
+            if (e == null){
 
-            if (mGiftBottomShet != null && !mGiftBottomShet.isShowing()){
-                mGiftBottomShet.show();
+                mGiftFooterList.clear();
+                mGiftFooterList.addAll(giftList);
+                mGiftLiveAdapter.notifyDataSetChanged();
             }
-        }catch (Exception e){
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
+        });
 
+        if (mGiftBottomShet != null && !mGiftBottomShet.isShowing()){
+            mGiftBottomShet.show();
+        }
     }
 
     public void sendLiveGift(GiftModel giftModel){
@@ -1291,7 +1287,7 @@ public class LiveStreamingActivity extends AppCompatActivity {
             int coins = giftModel.getCoins() /100;
             int diamonds = coins * 8;
 
-            params.put(GiftModel.CoinS_PARAM, diamonds);
+            params.put(GiftModel.CREDITS_PARAM, diamonds);
             params.put(GiftModel.KEY_OBJECT_ID, mLiveStreamObject.getAuthor().getObjectId());
             ParseCloud.callFunctionInBackground(SEND_GIFT_PARAM, params, (FunctionCallback<String>) (result, e) -> {
 

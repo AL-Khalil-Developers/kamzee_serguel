@@ -10,14 +10,14 @@ import com.parse.ParseQuery;
 public class GiftModel extends ParseObject {
 
     public static final String SEND_GIFT_PARAM = "send_gift";
-    public static final String CoinS_PARAM = "Coins";
+    public static final String CREDITS_PARAM = "credits";
 
-    public static final String CoinS = "Coins";
+    public static final String CREDITS = "Credits";
     public static final String FILE = "file";
     public static final String FILE_SOUND = "sound";
 
     public int getCoins() {
-        return getInt(CoinS);
+        return getInt(CREDITS);
     }
 
     public ParseFile getGiftFile() {
@@ -39,7 +39,6 @@ public class GiftModel extends ParseObject {
 
         return null;
     }
-
 
 
     public static ParseQuery<GiftModel> getGiftQuery() {
