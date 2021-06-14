@@ -13,6 +13,7 @@ public class GiftModel extends ParseObject {
     public static final String CREDITS_PARAM = "credits";
 
     public static final String CREDITS = "Credits";
+
     public static final String FILE = "file";
     public static final String FILE_SOUND = "sound";
 
